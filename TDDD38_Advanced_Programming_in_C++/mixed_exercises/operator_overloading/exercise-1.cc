@@ -96,8 +96,8 @@ int main(int argc __attribute__((unused)), char* argv[])
   Person p;
 
   fstream ifs (argv[1]);
-  ifs >> p;
+  if(ifs >> p)
 
-  cout << p;
+    cout << p;
   return 0;
 }

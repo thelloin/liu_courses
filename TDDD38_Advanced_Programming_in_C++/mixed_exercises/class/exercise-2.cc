@@ -45,14 +45,14 @@ Integer Integer::operator+()
   return Integer(i_);
 }
 
+Integer Integer::operator-()
+{
+  return Integer(-i_);
+}
+
 /*
  * Binary +, -, *, /, and % for Integer objects.
  */
-Integer Integer::operator-()
-{
-  return Integer(i_);
-}
-
 Integer operator+(const Integer& lhs, const Integer& rhs)
 {
   return Integer(lhs.i_ + rhs.i_);
