@@ -23,6 +23,16 @@ namespace Smart_Pointer
 
     int* operator->();
 
+    bool operator!() const;
+
+    friend bool operator==(const smart_pointer& lhs, const smart_pointer& rhs);
+    friend bool operator==(const smart_pointer& lhs, const int* rhs);
+    friend bool operator==(const int* lhs, const smart_pointer& rhs);
+
+    friend bool operator!=(const smart_pointer& lhs, const smart_pointer& rhs);
+    friend bool operator!=(const smart_pointer& lhs, const int* rhs);
+    friend bool operator!=(const int* lhs, const smart_pointer& rhs);
+
   private:
     int* ptr_{};
 
@@ -32,6 +42,17 @@ namespace Smart_Pointer
 
     void clear();
   };
+
+  // Is this neccessary?
+  void swap(smart_pointer& x, smart_pointer& y);
+
+  bool operator==(const smart_pointer& lhs, const smart_pointer& rhs);
+  bool operator==(const smart_pointer& lhs, const int* rhs);
+  bool operator==(const int* lhs, const smart_pointer& rhs);
+
+  bool operator!=(const smart_pointer& lhs, const smart_pointer& rhs);
+  bool operator!=(const smart_pointer& lhs, const int* rhs);
+  bool operator!=(const int* lhs, const smart_pointer& rhs);
 
 } // namespace smart_pointer
 

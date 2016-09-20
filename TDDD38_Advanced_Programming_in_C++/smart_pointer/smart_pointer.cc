@@ -58,6 +58,11 @@ namespace Smart_Pointer
     return ptr_;
   }
 
+  bool smart_pointer::operator!() const
+  {
+    return ptr_ == nullptr;
+  }
+
   void smart_pointer::copy(const smart_pointer& p)
   {
     ptr_ = (p.ptr_ != nullptr) ? new int{ *p.ptr_ } : nullptr;
@@ -73,6 +78,37 @@ namespace Smart_Pointer
     std::cout << "In smart_pointer::clear()" << std::endl;
     delete ptr_;
     ptr_ = nullptr;
+  }
+
+  // Friend functions
+  bool operator==(const smart_pointer& lhs, const smart_pointer& rhs)
+  {
+    return lhs.ptr_ == rhs.ptr_;
+  }
+
+  bool operator==(const smart_pointer& lhs, const int* rhs)
+  {
+    return lhs.ptr_ == rhs;
+  }
+
+  bool operator==(const int* lhs, const smart_pointer& rhs)
+  {
+    return lhs == rhs.ptr_;
+  }
+
+ bool operator!=(const smart_pointer& lhs, const smart_pointer& rhs)
+  {
+    return lhs.ptr_ != rhs.ptr_;
+  }
+
+  bool operator!=(const smart_pointer& lhs, const int* rhs)
+  {
+    return lhs.ptr_ != rhs;
+  }
+
+  bool operator!=(const int* lhs, const smart_pointer& rhs)
+  {
+    return lhs != rhs.ptr_;
   }
 
 }
