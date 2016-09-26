@@ -114,6 +114,36 @@ void compare_tests()
   int* p = new int{ 3 };
 
   cout << "\nComparing smart pointers with raw pointer using == and !=\n";
-  
+  if (sp1 == p) cout << "sp1 == p: true\n"; else cout << "sp1 == p: false\n";
+  if (p == sp1) cout << "p == sp1: true\n"; else cout << "p == sp1: false\n";
+  if (sp1 != p) cout << "sp1 != p: true\n"; else cout << "sp1 != p: false\n";
+  if (p != sp1) cout << "p != sp1: true\n"; else cout << "p != sp1: false\n";
+
+  cout << "\nDeclaring an empty pointer, sp0\n";
+  cout << "smart_pointer sp0\n";
+  smart_pointer sp0;
+
+  // Direct null pointer test is not allowed; there is no convention to bool
+  // if (sp0) cout << "sp0: true\n"; else cout << "sp0: false\n";
+  // if (sp1) cout << "sp1: true\n"; else cout << "sp1: false\n";
+
+  cout << "\nNegated direct null pointer test (sp0 is a null pointer, sp1 is not)\n";
+  if (!sp0) cout << "!sp0: true\n"; else cout << "!sp0: false\n";
+  if (!sp1) cout << "!sp1: true\n"; else cout << "!sp1: false\n";
+
+  cout << "\nExplicit equality test for null pointer (sp0 is a null pointer, sp1 is not)\n";
+  if (sp0 == nullptr) cout << "sp0 == nullptr: true\n"; else cout << "sp0 == nullptr: false\n";
+  if (nullptr == sp0) cout << "nullptr == sp0: true\n"; else cout << "nullptr == sp0: false\n";
+  if (sp1 == nullptr) cout << "sp1 == nullptr: true\n"; else cout << "sp1 == nullptr: false\n";
+  if (nullptr == sp1) cout << "nullptr == sp1: true\n"; else cout << "nullptr == sp1: false\n";
+
+  cout << "\nExplicit inequality test for null pointer (sp0 is a null pointer, sp1 is not\n";
+  if (sp0 != nullptr) cout << "sp0 != nullptr: true\n"; else cout << "sp0 != nullptr: false\n";
+  if (nullptr != sp0) cout << "nullptr != sp0: true\n"; else cout << "nullptr != sp0: false\n";
+  if (sp1 != nullptr) cout << "sp1 != nullptr: true\n"; else cout << "sp1 != nullptr: false\n";
+  if (nullptr != sp1) cout << "nullptr != sp1: true\n"; else cout << "nullptr != sp1: false\n";
+
+  // delete is not allowed, as it should not be
+  // delete sp0;
 
 }
