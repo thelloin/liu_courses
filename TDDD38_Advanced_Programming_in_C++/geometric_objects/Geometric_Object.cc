@@ -89,3 +89,36 @@ std::string Circular_Cylinder::to_str() const
   return "Circular_Cylinder@[r = " + std::to_string(r_) +
     ",h = " + std::to_string(h_) + ']';
 }
+
+/*
+ * Rectangle
+ */
+double Rectangle::get_area() const
+{
+  return a_ * b_;
+}
+
+double Rectangle::get_profile() const
+{
+  return 2.0 * a_ + 2.0 * b_;
+}
+
+double Rectangle::get_a() const
+{
+  return a_;
+}
+
+double Rectangle::get_b() const
+{
+  return b_;
+}
+
+Rectangle* Rectangle::clone() const
+{
+  return new Rectangle{ a_, b_ };
+}
+
+std::string Rectangle::to_str() const
+{
+  return "Rectangle@[a = " + std::to_string(a_) + ",b = " + std::to_string(b_) + ']';
+}

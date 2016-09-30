@@ -29,6 +29,9 @@ struct Solid
   virtual double get_volume() const = 0;
 };
 
+/*
+ * Point
+ */
 class Point final : public Geometric_Object
 {
  public:
@@ -51,6 +54,9 @@ class Point final : public Geometric_Object
 
 };
 
+/*
+ * Line
+ */
 class Line final : public Geometric_Object
 {
  public:
@@ -77,6 +83,9 @@ class Line final : public Geometric_Object
   std::string to_str() const override;
 };
 
+/*
+ * Circle
+ */
 class Circle : public Geometric_Object, public Plane
 {
  public:
@@ -102,6 +111,9 @@ class Circle : public Geometric_Object, public Plane
   std::string to_str() const override;
 };
 
+/*
+ * Circular_Cylinder
+ */
 class Circular_Cylinder : public Circle, public Solid
 {
  public:
@@ -124,6 +136,35 @@ class Circular_Cylinder : public Circle, public Solid
   Circular_Cylinder& operator=(const Circular_Cylinder&) = delete;
 
   std::string to_str() const override;
+};
+
+/*
+ * Rectangle
+ */
+class Rectangle : public Geometric_Object, public Plane
+{
+ public:
+  Rectangle() = default;
+ Rectangle(double a, double b) : a_{ a }, b_{ b } {}
+  ~Rectangle() = default;
+
+  double get_area() const override;
+  double get_profile() const override;
+
+  double get_a() const;
+  double get_b() const;
+
+  Rectangle* clone() const override;
+ protected:
+  Rectangle(const Rectangle&) = default;
+  Rectangle(Rectangle&&) = default;
+ private:
+  Rectangle& operator=(const Rectangle&) = delete;
+
+  std::string to_str() const override;
+
+  double a_{ 1.0 };
+  double b_{ 1.0 };
 };
 
 #endif

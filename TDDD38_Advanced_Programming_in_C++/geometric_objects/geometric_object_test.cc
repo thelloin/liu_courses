@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <typeinfo>
+#include <algorithm>
 
 int main()
 {
@@ -9,7 +10,8 @@ int main()
     new Point{ 1.0, 1.0 },
       new Line{ -1.0, -1.0, 1.0, 1.0 },
 	new Circle{ 2.0 },
-	  new Circular_Cylinder{ 2.0, 10.0 }
+	  new Circular_Cylinder{ 2.0, 10.0 },
+	    new Rectangle{ 1.0, 2.0 }
   };
 
   for (auto obj : objects)
@@ -48,5 +50,13 @@ int main()
 	  delete copy;
 	}
     }
+  std::cout << std::endl;
+
+  // Two way of freeing allocated memory
+  std::transform(begin(objects), end(objects), begin(objects),
+		 [](Geometric_Object* p){ delete p; return nullptr; });
+
+  for_each(begin(objects), end(objects),
+	   [](Geometric_Object*& p){ delete p; return nullptr; });
   return 0;
 }
