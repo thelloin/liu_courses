@@ -1,5 +1,5 @@
 /*
- * Container.tcc   Step 5. Types
+ * Container.tcc   Step 6. Iterators
  */
 #ifndef CONTAINER_TCC
 #define CONTAINER_TCC
@@ -332,5 +332,23 @@ Container<T>::pop_back() noexcept
     --finish_;
     finish_->~T();
 }
+
+/*
+ * Iterator functions [Step 6]
+ */
+template <typename T>
+typename Container<T>::iterator
+Container<T>::begin() noexcept
+{
+    return iterator(start_);
+}
+
+template <typename T>
+typename Container<T>::const_iterator
+Container<T>::begin() const noexcept
+{
+    return const_iterator(start_);
+}
+
 
 #endif /* CONTAINER_TCC */

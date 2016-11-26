@@ -1,5 +1,5 @@
 /*
- * Container.tcc   Step 3. Clearing and swapping
+ * Container.tcc   Step 4. Inserting and removing elements.
  */
 #ifndef CONTAINER_TCC
 #define CONTAINER_TCC

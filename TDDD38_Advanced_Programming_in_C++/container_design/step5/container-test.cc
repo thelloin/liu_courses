@@ -1,5 +1,5 @@
 /*
- * container-test.cc    Container Step 3
+ * container-test.cc    Container Step 5
  *
  * Tracer helper class is used to trace use of operations on Tracer objects,
  * i.e. to find out the requirements Container puts on the contained objects.
