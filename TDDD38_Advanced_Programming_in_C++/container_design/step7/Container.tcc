@@ -1,5 +1,5 @@
 /*
- * Container.tcc   Step 7. Storage management redesigned.
+ * Container.tcc    Step 7, Storage management redesigned.
  */
 #ifndef CONTAINER_TCC
 #define CONTAINER_TCC
@@ -9,7 +9,6 @@
 #include <cassert>
 #include <stdexcept>
 #include <utility>
-
 using namespace std;
 
 /*
@@ -171,7 +170,7 @@ resize_(const_reference x)
    }
    // destroy elements in old storage and replace old storage with new
    destroy_(begin(), end());   // can't fail
-   delete[] start_;            // can't fail
+   delete start_;              // can't fail
    start_ = new_start;
    finish_ = finish;
    end_of_storage_ = start_ + new_capacity;
@@ -423,7 +422,7 @@ pop_back()
 }
 
 /*
- * Iterator functions [Step 6]
+ * Iterator functions [STEP 6]
  */
 
 template <typename T>
@@ -522,4 +521,4 @@ crend() const noexcept
    return const_reverse_iterator(begin());
 }
 
-#endif /* CONTAINER_TCC */
+#endif
