@@ -6,7 +6,7 @@ CCC     = g++
 CCFLAGS = -std=c++11 -pedantic -Wall -Wextra 
 #LDFLAGS = -L/sw/${GCC4_V}/lib -static-libstdc++
 
-#all: ordered-list-test ordered-list-iterator-test
+all: ordered-list-test ordered-list-iterator-test
 
 ordered-list-test: Ordered_List.h Ordered_List.tcc ordered-list-test.cc
 	$(CCC) $(CCFLAGS) $(LDFLAGS) -o ordered-list-test ordered-list-test.cc

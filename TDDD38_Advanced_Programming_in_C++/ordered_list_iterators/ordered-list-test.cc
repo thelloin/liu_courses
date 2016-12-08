@@ -13,8 +13,7 @@ namespace std
    template<typename T, typename Compare>
    ostream& operator<<(ostream& os, const Ordered_List<T, Compare>& list)
    {
-      list.print();  // TO BE REMOVED, AND REPLACED BY:
-      //copy(begin(list), end(list), ostream_iterator<T>(cout, " "));
+      copy(begin(list), end(list), ostream_iterator<T>(cout, " "));
       return os;
    }
 }

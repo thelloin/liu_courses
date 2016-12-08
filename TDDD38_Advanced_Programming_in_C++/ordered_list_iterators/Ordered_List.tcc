@@ -24,7 +24,7 @@ Ordered_List<T, Compare>::Ordered_List(std::initializer_list<T> il)
 // copy assignment
 template<typename T, class Compare>
 Ordered_List<T, Compare>& 
-Ordered_List<T, Compare>::operator=(const Ordered_List& rhs)
+Ordered_List<T, Compare>::operator=(const Ordered_List& rhs) &
 {
    Ordered_List(rhs).swap(*this);
    return *this;
@@ -33,7 +33,7 @@ Ordered_List<T, Compare>::operator=(const Ordered_List& rhs)
 // move assignment
 template<typename T, class Compare>
 Ordered_List<T, Compare>& 
-Ordered_List<T, Compare>::operator=(Ordered_List&& rhs)
+Ordered_List<T, Compare>::operator=(Ordered_List&& rhs) & noexcept
 {
    clear();
    std::swap(head_, rhs.head_);
