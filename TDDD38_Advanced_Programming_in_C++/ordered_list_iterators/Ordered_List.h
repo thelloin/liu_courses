@@ -94,6 +94,7 @@ struct Ordered_List_iterator
     List_Node<T>* current_{ nullptr };
 };
 
+
 template <typename T>
 struct Ordered_List_const_iterator
 {
@@ -105,12 +106,13 @@ struct Ordered_List_const_iterator
 
     using Self_ = Ordered_List_const_iterator<T>;
 
-    explicit Ordered_List_const_iterator(List_Node<T>* x) : current_{ x } {}
     Ordered_List_const_iterator() = default;
-    Ordered_List_const_iterator(const Ordered_List_const_iterator&) = default;
-    Ordered_List_const_iterator(Ordered_List_const_iterator&&) noexcept = default;
+    explicit Ordered_List_const_iterator(const List_Node<T>* node) : current_{ node } {}
 
     ~Ordered_List_const_iterator() = default;
+
+    Ordered_List_const_iterator(const Ordered_List_const_iterator&) = default;
+    Ordered_List_const_iterator(Ordered_List_const_iterator&&) noexcept = default;
 
     Ordered_List_const_iterator& operator=(const Ordered_List_const_iterator&) & = default;
     Ordered_List_const_iterator& operator=(Ordered_List_const_iterator&&) & noexcept = default;
@@ -149,6 +151,65 @@ struct Ordered_List_const_iterator
 
     const List_Node<T>* current_{ nullptr };
 };
+
+
+/*template <typename T>
+struct Ordered_List_const_iterator
+{
+    using value_type           = T;
+    using reference            = const T&;
+    using pointer              = const T*;
+    using difference_type      = std::ptrdiff_t;
+    using iterator_category    = std::forward_iterator_tag;
+
+    using Self_ = Ordered_List_const_iterator<T>;
+
+    Ordered_List_const_iterator() = default;
+    explicit Ordered_List_const_iterator(List_Node<T>* x) : current_{ x } {}
+
+    ~Ordered_List_const_iterator() = default;
+
+    Ordered_List_const_iterator(const Ordered_List_const_iterator&) = default;
+    Ordered_List_const_iterator(Ordered_List_const_iterator&&) noexcept = default;
+
+
+    Ordered_List_const_iterator& operator=(const Ordered_List_const_iterator&) & = default;
+    Ordered_List_const_iterator& operator=(Ordered_List_const_iterator&&) & noexcept = default;
+
+    // Type convert Ordered_List_iterator to Ordered_List_const_iterator
+    Ordered_List_const_iterator(const Ordered_List_iterator<T>& other)
+	: current_{ other.current_ }
+	{}
+
+    reference operator*() const { return current_->data_; }
+    pointer operator->() const { return &(current_->data_); }
+
+    Self_& operator++()
+	{
+	    current_ = current_->next_;
+	    return *this;
+	}
+
+    Self_ operator++(int)
+	{
+	    Self_ tmp { *this };
+	    current_ = current_->next_;
+	    return tmp;
+	}
+
+    bool operator==(const Self_& other) const
+	{
+	    return current_ == other.current_;
+	}
+
+    bool operator!=(const Self_& other) const
+	{
+	    return current_ != other.current_;
+	}
+
+
+    const List_Node<T>* current_{ nullptr };
+    };*/
 
 template<typename T>
 inline bool
