@@ -1,5 +1,5 @@
 /*
- * count_occurencies.cc
+ * find_if_insert.cc
  */
 #include <iostream>
 #include <string>
@@ -7,7 +7,6 @@
 
 #include <algorithm>
 #include <iterator>
-
 using namespace std;
 
 // Give alias declarations for pair<string, int> and vector<pair<string, int>>.
@@ -28,13 +27,14 @@ namespace std
 
 int main()
 {
-    vector_psi v;
+    cout << "Testing finding_if_insert_multi.cc" << endl;
+    vector<pair<string, int>> v;  // replace with alias
     string s;
 
     while (cin >> s)
     {
-	//insert(s, v);  // test copy and move version!
-	insert(move(s), v);
+	insert(s, v);  // test copy and move version!
+	//insert(move(s), v);
     }
 
     // Print the content of the vector, with each entry on a line of its own.
@@ -46,38 +46,22 @@ int main()
 // Define the overloadings of insert()
 void insert(const string& s, vector_psi& vector)
 {
-    // Get the position of the first element NOT LESS
-    // than s.
-    auto pos = lower_bound(begin(vector),
-			   end(vector),
-			   s,
-			   [](const pair_si& p, const string& s) 
-			   { return p.first < s; });
+    static int n = 0;
 
-    if (pos != end(vector) && pos->first == s)
-    {
-	++pos->second;
-	return;
-    }
+    auto pos = find_if(begin(vector), end(vector),
+		       [&](const pair_si& p) { return s < p.first; });
 
-    vector.insert(pos, {s, 1});
+    vector.insert(pos, {s, ++n});
 }
 
 void insert(string&& s, vector_psi& vector)
 {
-    auto pos = lower_bound(begin(vector),
-			   end(vector),
-			   s,
-			   [](const pair_si& p, const string& s)
-			   { return p.first < s; });
+    static int n = 0;
 
-    if (pos != end(vector) && pos->first == s)
-    {
-	++pos->second;
-	return;
-    }
+    auto pos = find_if(begin(vector), end(vector),
+		       [&](const pair_si& p) { return s < p.first; });
 
-    vector.emplace(pos, s, 1);
+    vector.emplace(pos, move(s), ++n);
 }
 
 // Define the overloadings of operator<<
@@ -85,13 +69,13 @@ namespace std
 {
     ostream& operator<<(ostream& os, const pair_si& p)
     {
-	os << p.first << " (" << p.second << ')';
+	os << p.first << " (" << p.second << ")";
 	return os;
     }
 
     ostream& operator<<(ostream& os, const vector_psi& v)
     {
-	copy(begin(v), end(v), ostream_iterator<pair_si>{os, "\n"});
+	copy(cbegin(v), cend(v), ostream_iterator<pair_si>{ os, "\n" });
 	return os;
     }
 }

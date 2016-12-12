@@ -12,10 +12,15 @@ using vector_psi = vector<pair_si>;
 
 // Declare overloading a function insert(string, vector<pair_si> for inserting a
 // string into a verctor, in a copy and a move version regarding the string.
-insert(const string& s, vector_psi& vector);
-insert(string&& s, vector_psi& vector);
+void insert(const string& s, vector_psi& vector);
+void insert(string&& s, vector_psi& vector);
 
 // Declare overloadings operator<< for pair and vector (beware of ADL).
+namespace std
+{
+    ostream& operator<<(ostream&, const pair_si&);
+    ostream& operator<<(ostream&, const vector_psi&);
+}
 
 int main()
 {
