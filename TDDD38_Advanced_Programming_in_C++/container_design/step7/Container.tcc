@@ -170,7 +170,7 @@ resize_(const_reference x)
    }
    // destroy elements in old storage and replace old storage with new
    destroy_(begin(), end());   // can't fail
-   delete start_;              // can't fail
+   deallocate_(start_);        // can't fail
    start_ = new_start;
    finish_ = finish;
    end_of_storage_ = start_ + new_capacity;
