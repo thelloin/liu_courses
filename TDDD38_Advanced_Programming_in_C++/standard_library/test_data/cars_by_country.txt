@@ -1,0 +1,23 @@
+A      Daimler Puch Steyr Denzel Porsche
+AUS    Pioneer Holden
+B      FN Excelsior Imperia Metallurgique Minerva Excelsior
+BR     Aero Willys
+CDN    Russel-Knight
+CH     Saurer Berna Martini Enzmann 
+CS     Skoda Aero Jawa Tatra
+D      DKW BMW Hansa Lloyd Borgward Goliath Mercedes NSU Opel Audi Porsche Volkswagen Hannomag Wartburg Trabant
+DK     Anglo-Dane JAN
+E      Hispano-Suiza SEAT
+F      Peugeot Renault Citroen Simca Ducati Talbot
+GB     Austin Bentley Daimler Hillman Humber Jaguar MG Morris Riley Morgan Rolls-Royce Rover Triumph 
+I      Alfa Romeo Ferrari Fiat Lancia Maserati Lamborgini 
+NIPPON Mitsubishi Mazda Datsun Nissan Subaru Suzuki Toyota
+N      Irgens Fossum Geijer
+K      Hyundai Kia
+NL     Spyker DAF
+PL     Syrena
+RA     IKA
+RC     Hong-Chi
+S      Saab Volvo
+SU     Volga Moskovitch Tchaika ZIL
+USA    Rambler Nash Hudson Chrysler Dodge Plymouth Checker Lincoln Ford Buick Cadillac Chevrolet Oldsmobile Pontiac Studebaker

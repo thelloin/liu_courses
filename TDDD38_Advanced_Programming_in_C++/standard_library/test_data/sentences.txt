@@ -1,0 +1,6 @@
+Use algorithms rather than loops, if possible.Use algorithms rather
+than loops.    Use    algorithms! Use algorithms, if possible. If possible,
+
+use algorithms rather than 
+
+loops.       Why  is  it  usually  better  to  use  algorithms  than  loops?

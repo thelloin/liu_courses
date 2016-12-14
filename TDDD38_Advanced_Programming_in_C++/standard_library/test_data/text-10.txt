@@ -1,0 +1,2 @@
+Write a program program which removes adjacent equal equal words from a file,
+so that only one of the words words words will remain.
