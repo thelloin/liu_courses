@@ -23,6 +23,17 @@ struct by_length
 	}
 };
 
+template <int size, typename T = string>
+struct longer_than
+{
+    bool operator()(const T& arg)
+	{
+	    return size < arg.size();
+	}
+};
+
+const list<string> remove_word { "a", "and", "but", "do", "if", "in", "is", "its", "not", "of", "or", "that", "the", "to" };
+
 int main(int argc, char* argv[])
 {
     if (argc != 2)
@@ -55,5 +66,16 @@ int main(int argc, char* argv[])
     words.sort(by_length<string>());
     cout << "After sorting by length:\n" << words << "\n\n";
 
+    // Count numbers of words longer than 5
+    auto n = count_if( begin(words), end(words), longer_than<5>() );
+    cout << "Number of words longer than 5 letters are:\n" << n << ".\nPercentage: " << ((float)n/(float)words.size())*100.0 << "\n\n";
+
+    // Remove common words
+    for ( const auto& word : remove_word )
+    {
+	words.remove(word);
+    }
+    cout << "After removing common words:\n" << words << "\n\n";
+    
     return 0;
 }
