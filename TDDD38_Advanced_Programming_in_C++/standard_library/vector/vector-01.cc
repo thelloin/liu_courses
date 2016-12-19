@@ -18,9 +18,9 @@ int main()
     vector<char> v(begin(letters), end(letters));
 
     cout << "The elements in order:\n";
-    copy(begin(v), end(v), ostream_iterator<char>{cout, " "});
+    copy(cbegin(v), cend(v), ostream_iterator<char>{cout, " "});
     cout << "\nThe elements in reverse order:\n";
-    copy(rbegin(v), rend(v), ostream_iterator<char>{cout, " "});
+    copy(crbegin(v), crend(v), ostream_iterator<char>{cout, " "});
     cout << '\n';
     return 0;
 }
