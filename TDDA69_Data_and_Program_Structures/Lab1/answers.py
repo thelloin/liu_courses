@@ -15,8 +15,11 @@ def sum_iter(term, lower, successor, upper):
         if lower > upper:
             return result
         else:
-            iter(successor(lower), term(lower) + result)
+            return iter(successor(lower), term(lower) + result)
     return iter(lower, 0)
+
+print("Testing sum-iter (expected value 10)")
+print(sum_iter( lambda x: x, 1, lambda x: x+1, 4  ))
 
 """ 1.1 b) Explain what makes this a tail recursive function.
 
@@ -32,12 +35,93 @@ def sum_iter(term, lower, successor, upper):
 """ 1.2 a) In a similar fashion, define product and product_iter which computer products.
 """
 
-# TODO: Work needed
-def product(lower, upper):
+def product(term, lower, successor, upper):
     def product_iter(lower, result):
         if lower > upper:
             return result
         else:
-            return product_iter(lower + 1, result * lower)
+            return product_iter(successor(lower), term(lower) * result)
     return product_iter(lower, 1)
+
+print("Testing product (expected value 12)")
+print(product( lambda x: x, 3, lambda x: x + 1, 4 ))
+
+""" 1.2 b) Define factorial using one of the functions above """
+
+def factorial(term, successor, n):
+    return product(term, 1, successor, n)
+
+print("Testing factorial (expected value 24)")
+print(factorial(lambda x: x, lambda x: x+1, 4))
+
+""" 1.2 c) Create a program that calculates an approximation of pi by using one of the
+    product functions. """
+
+# TODO
+
+""" 1.3 a) Create functions accumulate and accumulate-iter.
+    Note. Because this is based on SICP 1.32 I assume that null is the base value
+    and that accumulate is a recursive version and accumulate_iter is a iterative
+    version. """
+
+
+def accumulate(combiner, null, term, lower, succ, upper):
+    if lower > upper:
+        return null
+    else:
+        return combiner(term(lower), accumulate(combiner, null, term, succ(lower), succ, upper))
+
+print("Testing accumulate for sum (expected value 15)")
+print( accumulate( lambda x, y: x + y, 0, lambda x: x, 1, lambda x: x+1, 5) )
+print("Testing accumulate for product (expected value 120)")
+print( accumulate( lambda x, y: x * y, 1, lambda x: x, 1, lambda x: x+1, 5) )
+
+def accumulate_iter(combiner, null, term, lower, succ, upper):
+    def iter(lower, result):
+        if lower > upper:
+            return result
+        else:
+            return iter(succ(lower), combiner(result, term(lower)))
+    return iter(lower, null)
+
+print("Testing accumulate_iter for sum (expected value 15)")
+print( accumulate_iter( lambda x, y: x + y, 0, lambda x: x, 1, lambda x: x+1, 5) )
+print("Testing accumulate for product (expected value 120)")
+print( accumulate_iter( lambda x, y: x * y, 1, lambda x: x, 1, lambda x: x+1, 5) )
+
+""" 1.3 b) Define product and sum as calls to accumulate and accumulate_iter """
+
+def sum_acc(term, lower, successor, upper):
+    return accumulate(lambda x, y: x + y, 0, term, lower, successor, upper)
+
+print("Testing sum_acc (expected value 55)")
+print(sum_acc( lambda x: x, 1, lambda x: x+1, 10))
+
+def sum_acc_iter(term, lower, successor, upper):
+    return accumulate_iter(lambda x, y: x + y, 0, term, lower, successor, upper)
+
+print("Testing sum_acc_iter (expected value 55)")
+print(sum_acc_iter( lambda x: x, 1, lambda x: x+1, 10))
+
+def product_acc(term, lower, successor, upper):
+    return accumulate(lambda x, y: x * y, 1, term, lower, successor, upper)
+
+print("Testing product_acc (expected value 6720)")
+print(product_acc( lambda x: x, 4, lambda x: x+1, 8))
+
+def product_acc_iter(term, lower, successor, upper):
+    return accumulate_iter(lambda x, y: x * y, 1, term, lower, successor, upper)
+
+print("Testing product_acc_iter (expected value 6720)")
+print(product_acc_iter( lambda x: x, 4, lambda x: x+1, 8))
+
+""" 1.3 c) Find what property the combiner must have in order for accumulate and
+    accumulate_iter to work. 
+
+    The combiner must be associative: (x + y) + z = x + (y + z) """
+
+# Use subtraction (non-associative)
+print("Call accumulate and accumulate with subtraction as combiner.")
+print( accumulate( lambda x, y: x - y, 0, lambda x: x, 1, lambda x: x+1, 5) )
+print( accumulate_iter( lambda x, y: x - y, 0, lambda x: x, 1, lambda x: x+1, 5) )
 
