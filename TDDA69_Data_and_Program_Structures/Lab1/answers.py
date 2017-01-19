@@ -57,7 +57,12 @@ print(factorial(lambda x: x, lambda x: x+1, 4))
 """ 1.2 c) Create a program that calculates an approximation of pi by using one of the
     product functions. """
 
-# TODO
+print("Testing calculating pi using Wallis product:")
+print(2*product(lambda x: (2*x/(2*x-1))*(2*x/(2*x+1)), 1, lambda x: x+1, 500))
+
+# Testing using sum_iter as the book:
+print("Testing calculating pi using sum_iter...")
+print(sum_iter(lambda x: 8 / ((4*x-3) * (4*x-1)), 1, lambda x: x+1, 500 ))
 
 """ 1.3 a) Create functions accumulate and accumulate-iter.
     Note. Because this is based on SICP 1.32 I assume that null is the base value
@@ -125,3 +130,41 @@ print("Call accumulate and accumulate with subtraction as combiner.")
 print( accumulate( lambda x, y: x - y, 0, lambda x: x, 1, lambda x: x+1, 5) )
 print( accumulate_iter( lambda x, y: x - y, 0, lambda x: x, 1, lambda x: x+1, 5) )
 
+""" 1.4 a) Create a purely functional, recursive left fold foldl that works on
+    indexable sequences. """
+
+def foldl(fn, z, xs):
+    if len(xs) == 1:
+        return fn(z, xs[0])
+    else:
+        #return fn(z, foldl(fn, xs[0], xs[1:]))
+        return foldl(fn, fn(z, xs[0]), xs[1:])
+
+print("Testing foldl")
+print(foldl(lambda x, y: x - y, 0, [1,2,3]))
+
+""" 1.4 b) Create a purely functional, recursive right fold foldr. """
+
+def foldr(fn, z, xs):
+    if len(xs) == 1:
+        return fn(xs[0], z)
+    else:
+        return fn(xs[0], foldr(fn, z, xs[1:]))
+
+print("Testing foldr")
+print(foldr(lambda x, y: x - y, 0, [1,2,3]))
+
+""" 1.4 c) Define my_map, reverse_r and reverse_l as calls to foldr and foldl. """
+
+# Need to ask about theese
+def my_map(f, seq):
+    """ Returns [f(seq[0]), f(seq[1]), ...]. Uses foldr or foldl. """
+    pass
+
+def reverse_r(seq):
+    """ Returns seq reversed. Uses foldr. """
+    pass
+
+def reverse_l(seq):
+    """ Returns seq reversed. Uses foldl. """
+    pass
