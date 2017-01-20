@@ -126,7 +126,7 @@ print(product_acc_iter( lambda x: x, 4, lambda x: x+1, 8))
     The combiner must be associative: (x + y) + z = x + (y + z) """
 
 # Use subtraction (non-associative)
-print("Call accumulate and accumulate with subtraction as combiner.")
+print("Call accumulate and accumulate_iter with subtraction as combiner.")
 print( accumulate( lambda x, y: x - y, 0, lambda x: x, 1, lambda x: x+1, 5) )
 print( accumulate_iter( lambda x, y: x - y, 0, lambda x: x, 1, lambda x: x+1, 5) )
 
@@ -156,15 +156,80 @@ print(foldr(lambda x, y: x - y, 0, [1,2,3]))
 
 """ 1.4 c) Define my_map, reverse_r and reverse_l as calls to foldr and foldl. """
 
-# Need to ask about theese
 def my_map(f, seq):
     """ Returns [f(seq[0]), f(seq[1]), ...]. Uses foldr or foldl. """
-    pass
+    return foldl(lambda x, y: x + [f(y)], [], seq)
 
 def reverse_r(seq):
     """ Returns seq reversed. Uses foldr. """
-    pass
+    return foldr(lambda x, y: y + [x], [], seq)
 
 def reverse_l(seq):
     """ Returns seq reversed. Uses foldl. """
-    pass
+    return foldl(lambda x, y: [y] + x, [], seq)
+
+print("Testing my_map (expected result: [3,4,5,6])")
+print(my_map(lambda x: x + 2, [1,2,3,4]))
+print("Testing reverse_r (expected result: [4,3,2,1])")
+print(reverse_r([1,2,3,4]))
+print("Testing reverse_l (expected result: [4,3,2,1])")
+print(reverse_l([1,2,3,4]))
+
+""" 1.5 a) Define a function repeat that takes a function f, and int n >= 0
+    and returns the function f^n. """
+
+def repeat(f, n):
+    if n > 1:
+        rep_func = repeat(f, n - 1)
+        return lambda x: f(rep_func(x))
+    return f # if return lambda x: x, then 1.6 b is working properly but not 1.5a.....
+
+print("Testing repeat (expected value: 625)")
+sq = lambda x: x*x
+sq_twice = repeat(sq, 2)
+print(type(sq_twice))
+print(sq_twice(5))
+
+""" 1.5 b) If you were to write a type signature for f above, what would it be? """
+
+# TODO
+
+""" 1.5 c) Define a function compose that takes one-parameters f and g and returns
+    f(g(x)). """
+
+def compose(f, g):
+    return lambda x: f(g(x))
+
+print("Testing compose: (expected value: 1025)")
+print(compose(lambda x: x + 1000, lambda x: x*x)(5))
+print("Testing compose: (expected value: 49)")
+print(compose(lambda x: x*x, lambda x: x+1)(6))
+
+""" 1.5 d) Use the higher-order function accumulate and compose to create a
+    repeated_application that works as repeat. """
+
+def repeated_application(f, n):
+    return accumulate(compose, lambda x: x, lambda x: f, 1, lambda x: x+1, n)
+
+print("Testing repeated_application: (expected value 625)")
+print(repeated_application(sq, 2)(5))
+
+""" 1.6 a) Write a procedure smooth that takes f as input and returns the smoothed
+    version of f with dx = 0.01. """
+
+def smooth(f):
+    return lambda x: (f(x-0.01)+f(x)+f(x+0.01))/3
+
+print("Testing smooth")
+smoothed_sq = smooth(lambda x: x*x)
+print(smoothed_sq(4))
+
+# TODO: not working, NOW it is!!!
+def n_fold_smooth(f, n):
+    return repeat(smooth, n)(f)
+
+print("Testing n_fold_smooth")
+five_smoothed_square = n_fold_smooth(lambda x: x*x, 5)
+print(five_smoothed_square(4))
+regular_sq = n_fold_smooth(lambda x: x*x, 0)
+print(regular_sq(5)) # This gives the wrong answer, probably something wrong with repeat...
